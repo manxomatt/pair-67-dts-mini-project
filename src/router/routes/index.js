@@ -12,8 +12,10 @@ import PublicRoute from "@components/routes/PublicRoute"
 
 // ** Utils
 import { isObjEmpty } from "@utils"
-import DetailMovie from "../../components/DetailMovie"
-import PrivateAuth from "../../components/PrivateAuth"
+// import DetailMovie from "../../components/DetailMovie"
+// import PrivateAuth from "../../components/PrivateAuth"
+// import { useAuthState } from 'react-firebase-hooks/auth'
+// import { auth } from '../../configs/firebasecon'
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -33,6 +35,12 @@ const Login = lazy(() => import("../../views/Login"))
 const Register = lazy(() => import("../../views/Register"))
 const ForgotPassword = lazy(() => import("../../views/ForgotPassword"))
 const Error = lazy(() => import("../../views/Error"))
+const PrivateAuth = lazy(() => import("../../components/PrivateAuth"))
+const DetailMovie = lazy(() => import("../../components/DetailMovie"))
+
+// const [user] =  useAuthState(auth)
+        
+// console.log(user)
 
 // ** Merge Routes
 const Routes = [
@@ -47,7 +55,8 @@ const Routes = [
   },
   {
     path: "/movie/:movieId",
-    element: <PrivateAuth><DetailMovie /></PrivateAuth> 
+    element: <DetailMovie /> 
+    // <PrivateAuth></PrivateAuth> 
   },
   {
     path: "/second-page",
@@ -55,17 +64,17 @@ const Routes = [
   },
   {
     path: "/login",
-    element: <Login />
-    // meta: {
-    //   layout: "blank"
-    // }
+    element: <Login />,
+    meta: {
+      layout: "blank"
+    }
   },
   {
     path: "/register",
-    element: <Register />
-    // meta: {
-    //   layout: "blank"
-    // }
+    element: <Register />,
+    meta: {
+      layout: "blank"
+    }
   },
   {
     path: "/forgot-password",

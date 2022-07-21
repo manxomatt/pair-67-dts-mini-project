@@ -5,7 +5,7 @@ import { Button, Card, CardTitle, CardBody, CardText, CardImg } from 'reactstrap
 const BASE_IMAGE_URL = 'https://image.tmdb.org/t/p/w200/'
 
 const MovieCard = ({movie}) => {
-    console.log(movie)
+    
     return (
         <Card>
           <CardImg top src={`${BASE_IMAGE_URL}${movie.poster_path}`} alt={movie.title} />

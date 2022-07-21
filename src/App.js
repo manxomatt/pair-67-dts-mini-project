@@ -1,4 +1,5 @@
 import React, { Suspense } from "react"
+import PrivateAuth from "./components/PrivateAuth"
 
 // ** Router Import
 import Router from "./router/Router"
@@ -6,7 +7,9 @@ import Router from "./router/Router"
 const App = () => {
   return (
     <Suspense fallback={null}>
-      <Router />
+      {/* <PrivateAuth > */}
+        <Router />
+      {/* </PrivateAuth> */}
     </Suspense>
   )
 }
