@@ -13,6 +13,7 @@ import PublicRoute from "@components/routes/PublicRoute"
 // ** Utils
 import { isObjEmpty } from "@utils"
 import DetailMovie from "../../components/DetailMovie"
+import PrivateAuth from "../../components/PrivateAuth"
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -46,7 +47,7 @@ const Routes = [
   },
   {
     path: "/movie/:movieId",
-    element: <DetailMovie />
+    element: <PrivateAuth><DetailMovie /></PrivateAuth> 
   },
   {
     path: "/second-page",

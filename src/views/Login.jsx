@@ -1,5 +1,5 @@
 import { useSkin } from "@hooks/useSkin"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Facebook, Twitter, Mail, GitHub } from "react-feather"
 import InputPasswordToggle from "@components/input-password-toggle"
 import {
@@ -13,13 +13,33 @@ import {
   Button
 } from "reactstrap"
 import "@styles/react/pages/page-authentication.scss"
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import * as React from 'react'
+import { auth } from '../configs/firebasecon'
 
 const Login = () => {
   const { skin } = useSkin()
 
   const illustration = skin === "dark" ? "login-v2-dark.svg" : "login-v2.svg",
     source = require(`@src/assets/images/pages/${illustration}`).default
+  
+    const navigate = useNavigate()
+    // const [errorMessage, setErrorMessage] = React.useState('')
 
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
+        const email = data.get('email')
+        const password = data.get('password')
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password)
+            navigate("/")
+        } catch (error) {
+          console.log(error)
+            // setErrorMessage("Tidak Memiliki Akun Harap Sign up Dahulu", error)
+        }
+    }
   return (
     <div className="auth-wrapper auth-cover">
       <Row className="auth-inner m-0">
@@ -90,7 +110,7 @@ const Login = () => {
               </g>
             </g>
           </svg>
-          <h2 className="brand-text text-primary ms-1">Vuexy</h2>
+          <h2 className="brand-text text-primary ms-1">Moviey</h2>
         </Link>
         <Col className="d-none d-lg-flex align-items-center p-5" lg="8" sm="12">
           <div className="w-100 d-lg-flex align-items-center justify-content-center px-5">
@@ -104,14 +124,14 @@ const Login = () => {
         >
           <Col className="px-xl-2 mx-auto" sm="8" md="6" lg="12">
             <CardTitle tag="h2" className="fw-bold mb-1">
-              Welcome to Vuexy! 👋
+              Welcome to Moviey! 👋
             </CardTitle>
             <CardText className="mb-2">
               Please sign-in to your account and start the adventure
             </CardText>
             <Form
               className="auth-login-form mt-2"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
             >
               <div className="mb-1">
                 <Label className="form-label" for="login-email">
@@ -119,7 +139,8 @@ const Login = () => {
                 </Label>
                 <Input
                   type="email"
-                  id="login-email"
+                  id="email"
+                  name="email"
                   placeholder="john@example.com"
                   autoFocus
                 />
@@ -135,7 +156,8 @@ const Login = () => {
                 </div>
                 <InputPasswordToggle
                   className="input-group-merge"
-                  id="login-password"
+                  id="password"
+                  name="password"
                 />
               </div>
               <div className="form-check mb-1">
@@ -144,7 +166,7 @@ const Login = () => {
                   Remember Me
                 </Label>
               </div>
-              <Button tag={Link} to="/" color="primary" block>
+              <Button type="submit" color="primary" block>
                 Sign in
               </Button>
             </Form>

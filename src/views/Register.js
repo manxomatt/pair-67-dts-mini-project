@@ -1,15 +1,13 @@
-// ** React Imports
-import { Link } from "react-router-dom"
 
 // ** Custom Hooks
 import { useSkin } from "@hooks/useSkin"
-
+// import { useState } from 'react'
 // ** Icons Imports
 import { Facebook, Twitter, Mail, GitHub } from "react-feather"
 
 // ** Custom Components
 import InputPasswordToggle from "@components/input-password-toggle"
-
+import { Link, useNavigate } from 'react-router-dom'
 // ** Reactstrap Imports
 import {
   Row,
@@ -22,6 +20,9 @@ import {
   Button
 } from "reactstrap"
 
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../configs/firebasecon'
+
 // ** Styles
 import "@styles/react/pages/page-authentication.scss"
 
@@ -32,6 +33,25 @@ const Register = () => {
   const illustration =
       skin === "dark" ? "register-v2-dark.svg" : "register-v2.svg",
     source = require(`@src/assets/images/pages/${illustration}`).default
+
+  const navigate = useNavigate()
+  // const [setErrorMessage] = useState('')
+
+  const handleSubmit = async (event) => {
+      event.preventDefault()
+      const data = new FormData(event.currentTarget)
+      const email = data.get('email')
+      const password = data.get('password')
+      
+      try {
+          const { user } = await createUserWithEmailAndPassword(auth, email, password)
+          console.log(user)
+          navigate("/")
+      } catch (error) {
+          // setErrorMessage("Sudah Terdaftar", error)
+          console.log(error)
+      }
+  }
 
   return (
     <div className="auth-wrapper auth-cover">
@@ -120,13 +140,13 @@ const Register = () => {
               Adventure starts here 🚀
             </CardTitle>
             <CardText className="mb-2">
-              Make your app management easy and fun!
+              Make your day easy and fun!
             </CardText>
             <Form
               className="auth-register-form mt-2"
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}//(e) => e.preventDefault()}
             >
-              <div className="mb-1">
+              {/* <div className="mb-1">
                 <Label className="form-label" for="register-username">
                   Username
                 </Label>
@@ -136,14 +156,15 @@ const Register = () => {
                   placeholder="johndoe"
                   autoFocus
                 />
-              </div>
+              </div> */}
               <div className="mb-1">
                 <Label className="form-label" for="register-email">
                   Email
                 </Label>
                 <Input
                   type="email"
-                  id="register-email"
+                  id="email"
+                  name="email"
                   placeholder="john@example.com"
                 />
               </div>
@@ -153,7 +174,8 @@ const Register = () => {
                 </Label>
                 <InputPasswordToggle
                   className="input-group-merge"
-                  id="register-password"
+                  id="password"
+                  name="password"
                 />
               </div>
               <div className="form-check mb-1">
@@ -169,7 +191,7 @@ const Register = () => {
                   </a>
                 </Label>
               </div>
-              <Button tag={Link} to="/" color="primary" block>
+              <Button type="submit" color="primary" block>
                 Sign up
               </Button>
             </Form>
@@ -179,10 +201,10 @@ const Register = () => {
                 <span>Sign in instead</span>
               </Link>
             </p>
-            <div className="divider my-2">
+            {/* <div className="divider my-2">
               <div className="divider-text">or</div>
-            </div>
-            <div className="auth-footer-btn d-flex justify-content-center">
+            </div> */}
+            {/* <div className="auth-footer-btn d-flex justify-content-center">
               <Button color="facebook">
                 <Facebook size={14} />
               </Button>
@@ -195,7 +217,7 @@ const Register = () => {
               <Button className="me-0" color="github">
                 <GitHub size={14} />
               </Button>
-            </div>
+            </div> */}
           </Col>
         </Col>
       </Row>
