@@ -12,10 +12,6 @@ import PublicRoute from "@components/routes/PublicRoute"
 
 // ** Utils
 import { isObjEmpty } from "@utils"
-// import DetailMovie from "../../components/DetailMovie"
-// import PrivateAuth from "../../components/PrivateAuth"
-// import { useAuthState } from 'react-firebase-hooks/auth'
-// import { auth } from '../../configs/firebasecon'
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -37,10 +33,11 @@ const ForgotPassword = lazy(() => import("../../views/ForgotPassword"))
 const Error = lazy(() => import("../../views/Error"))
 const PrivateAuth = lazy(() => import("../../components/PrivateAuth"))
 const DetailMovie = lazy(() => import("../../components/DetailMovie"))
-
+const ProtectedRoute = lazy(() => import("../../utility/ProtectedRoute"))
 // const [user] =  useAuthState(auth)
         
 // console.log(user)
+
 
 // ** Merge Routes
 const Routes = [
@@ -55,8 +52,11 @@ const Routes = [
   },
   {
     path: "/movie/:movieId",
-    element: <DetailMovie /> 
-    // <PrivateAuth></PrivateAuth> 
+    element: <ProtectedRoute><DetailMovie /></ProtectedRoute>,
+    meta: {
+      layout: "blank"
+    }
+    // 
   },
   {
     path: "/second-page",
@@ -150,7 +150,7 @@ const getRoutes = (layout) => {
   const layouts = ["vertical", "horizontal", "blank"]
 
   const AllRoutes = []
-
+  // console.log(user)
   layouts.forEach((layoutItem) => {
     const LayoutRoutes = MergeLayoutRoutes(layoutItem, defaultLayout)
 

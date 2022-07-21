@@ -3,6 +3,7 @@ import { Row, Col, Card, CardImg, CardBody, CardTitle, CardText, CardFooter } fr
 import React, { useEffect, useState } from 'react'
 import tmdbIns from '../utility/tmdb'
 import MovieCard from './MovieCard'
+// import { useAuthState } from '../utility/firebase'
 // ** Images
 // import img1 from '@src/assets/images/slider/03.jpg'
 // import img2 from '@src/assets/images/slider/02.jpg'
@@ -10,7 +11,8 @@ import MovieCard from './MovieCard'
 
 const PopularMovies = () => {
 
-    
+    // const { user } = useAuthState()
+    // console.log(user)
     const [popular, setPopular] = useState([]) //
 
     const fetchPopular = async () => {
