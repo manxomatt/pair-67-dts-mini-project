@@ -52,10 +52,11 @@ const Routes = [
   },
   {
     path: "/movie/:movieId",
-    element: <ProtectedRoute><DetailMovie /></ProtectedRoute>,
-    meta: {
-      layout: "blank"
-    }
+    element: <DetailMovie /> 
+    //<ProtectedRoute></ProtectedRoute>,
+    // meta: {
+    //   layout: "blank"
+    // }
     // 
   },
   {

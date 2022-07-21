@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import tmdbIns from '../utility/tmdb'
 // import { useAuthState } from 'react-firebase-hooks/auth'
+import { useUserAuth } from "../utility/UserAuthContext"
 import {
     Row,
     Col,
@@ -18,6 +19,11 @@ const LOADING_IMG_URL = 'https://c.tenor.com/aEjYE139N7wAAAAC/discord-loader.gif
 // import { auth } from '../configs/firebasecon'
 
 const DetailMovie =  () => {
+  
+  const { user } = useUserAuth()
+  if (!user) {
+    return <Navigate to="/login" />
+  }
 
     // const privateAuth = ({  loginOnly = true }) => {
         // const [user] =  useAuthState(auth)

@@ -16,6 +16,7 @@ import {
   Power
 } from "react-feather"
 import { useAuthState } from "react-firebase-hooks/auth"
+// import { useUserAuth } from "../../../../utility/UserAuthContext"
 import {auth} from "../../../../configs/firebasecon"
 import { signOut } from "firebase/auth"
 // ** Reactstrap Imports
@@ -34,6 +35,8 @@ const UserDropdown = () => {
     signOut(auth)
     navigate('/')
 }
+
+  // const { user } = useUserAuth()
 
   const [user] = useAuthState(auth) //, loading, err
   // console.log(user)
