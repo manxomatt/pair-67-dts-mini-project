@@ -5,6 +5,8 @@ import { auth } from '../configs/firebasecon'
 
 const PrivateAuth = ({ children, loginOnly = true }) => {
     const [user] = useAuthState(auth)
+    
+    console.log(user)
 
     if (!user && loginOnly) {
         return <Navigate to="/login"/>

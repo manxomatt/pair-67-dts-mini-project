@@ -36,6 +36,7 @@ const UserDropdown = () => {
 }
 
   const [user] = useAuthState(auth) //, loading, err
+  // console.log(user)
   return (
     <UncontrolledDropdown tag="li" className="dropdown-user nav-item">
       { user ? <><DropdownToggle

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useParams } from 'react-router-dom'
 import tmdbIns from '../utility/tmdb'
+import { useAuthState } from 'react-firebase-hooks/auth'
 import {
     Row,
     Col,
@@ -14,8 +15,27 @@ import {
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500/'
 const LOADING_IMG_URL = 'https://c.tenor.com/aEjYE139N7wAAAAC/discord-loader.gif'
+import { auth } from '../configs/firebasecon'
 
-const DetailMovie = () => {
+const DetailMovie =  () => {
+
+    // const privateAuth = ({  loginOnly = true }) => {
+        const [user] =  useAuthState(auth)
+        
+        console.log(user)
+    
+        if (!user) { //&& loginOnly
+            return <Navigate to="/login"/>
+        }
+    
+        // if (user && !loginOnly) {
+        //     return <Navigate to="/"/>
+        // }
+        
+        // return children children,
+    // }
+
+    // privateAuth(true)
 
     const { movieId } = useParams()
 
