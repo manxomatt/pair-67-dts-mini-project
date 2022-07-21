@@ -1,3 +1,6 @@
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import tmdbIns from '../utility/tmdb'
 import {
     Row,
     Col,
@@ -8,43 +11,49 @@ import {
     DropdownToggle,
     UncontrolledButtonDropdown
   } from 'reactstrap'
-  
+
+const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500/'
+const LOADING_IMG_URL = 'https://c.tenor.com/aEjYE139N7wAAAAC/discord-loader.gif'
+
 const DetailMovie = () => {
 
-    // const { movieId } = useParams()
+    const { movieId } = useParams()
 
-    // const [setDetail] = useState({}) //detail,
-    // const [setLoading] = useState(true) //loading,
+    const [detail, setDetail] = useState({})
+    const [loading, setLoading] = useState(true)
 
-    // const fetchDetail = async () => {
-    //     try {
-    //         const fetchData = await tmdb.get(`movie/${movieId}`)
-    //         setDetail(fetchData.data)
-    //         console.log(fetchData.data)
-    //     } catch (error) {
-    //         console.log(error)
-    //         setDetail({})
-    //     }
-    // }
+    const fetchDetail = async () => {
+        try {
+            const fetchData = await tmdbIns.get(`movie/${movieId}`)
+            setDetail(fetchData.data)
+            console.log(fetchData.data)
+        } catch (error) {
+            console.log(error)
+            setDetail({})
+        }
+    }
 
-    // useEffect(() => {
-    //     window.scrollTo(0, 0)
-    //     setLoading(true)
-    //     fetchDetail()
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        setLoading(true)
+        fetchDetail()
 
-    //     // fetchImages()
+        // fetchImages()
       
-    // }, [movieId])
-    
+    }, [movieId])
+    console.log(detail)
+    console.log(loading)
+
     return (
         <Row className='my-2'>
-      <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
-        <div className='d-flex align-items-center justify-content-center'>
-          {/* <img className='img-fluid product-img' src={data.image} alt={data.name} /> */}
-        </div>
-      </Col>
+            <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
+                <div className='d-flex align-items-center justify-content-center'>
+                <img className='img-fluid product-img' src={`${BASE_IMG_URL}${detail.backdrop_path}`}
+                            alt={detail.title} />
+                </div>
+            </Col>
       <Col md='7' xs='12'>
-        {/* <h4>{data.name}</h4> */}
+        <h4>{detail.title}</h4>
         {/* <CardText tag='span' className='item-company'>
           By
           <a className='company-name' href='/' onClick={e => e.preventDefault()}>
@@ -70,8 +79,8 @@ const DetailMovie = () => {
         </div>
         <CardText>
           Available -<span className='text-success ms-25'>In stock</span>
-        </CardText>
-        <CardText>{data.description}</CardText> */}
+        </CardText> */}
+        <CardText>{detail.overview}</CardText> 
         {/* <ul className='product-features list-unstyled'>
           {data.hasFreeShipping ? (
             <li>
