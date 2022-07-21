@@ -13,9 +13,9 @@ import {
   Button
 } from "reactstrap"
 import "@styles/react/pages/page-authentication.scss"
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import * as React from 'react'
-import { auth } from '../configs/firebasecon'
+// import { auth } from '../configs/firebasecon'
 
 const Login = () => {
   const { skin } = useSkin()
@@ -31,7 +31,8 @@ const Login = () => {
         const data = new FormData(event.currentTarget)
         const email = data.get('email')
         const password = data.get('password')
-
+        // const { email, password } = e.target.elements
+        const auth = getAuth()
         try {
             await signInWithEmailAndPassword(auth, email, password)
             navigate("/")
@@ -176,7 +177,7 @@ const Login = () => {
                 <span>Create an account</span>
               </Link>
             </p>
-            <div className="divider my-2">
+            {/* <div className="divider my-2">
               <div className="divider-text">or</div>
             </div>
             <div className="auth-footer-btn d-flex justify-content-center">
@@ -192,7 +193,7 @@ const Login = () => {
               <Button className="me-0" color="github">
                 <GitHub size={14} />
               </Button>
-            </div>
+            </div> */}
           </Col>
         </Col>
       </Row>

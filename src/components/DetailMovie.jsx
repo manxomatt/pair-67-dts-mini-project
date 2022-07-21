@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import tmdbIns from '../utility/tmdb'
-import { useAuthState } from 'react-firebase-hooks/auth'
+// import { useAuthState } from 'react-firebase-hooks/auth'
 import {
     Row,
     Col,
@@ -15,18 +15,18 @@ import {
 
 const BASE_IMG_URL = 'https://image.tmdb.org/t/p/w500/'
 const LOADING_IMG_URL = 'https://c.tenor.com/aEjYE139N7wAAAAC/discord-loader.gif'
-import { auth } from '../configs/firebasecon'
+// import { auth } from '../configs/firebasecon'
 
 const DetailMovie =  () => {
 
     // const privateAuth = ({  loginOnly = true }) => {
-        const [user] =  useAuthState(auth)
+        // const [user] =  useAuthState(auth)
         
-        console.log(user)
+        // console.log(user)
     
-        if (!user) { //&& loginOnly
-            return <Navigate to="/login"/>
-        }
+        // if (!user) { //&& loginOnly
+        //     return <Navigate to="/login"/>
+        // }
     
         // if (user && !loginOnly) {
         //     return <Navigate to="/"/>
@@ -46,7 +46,6 @@ const DetailMovie =  () => {
         try {
             const fetchData = await tmdbIns.get(`movie/${movieId}`)
             setDetail(fetchData.data)
-            console.log(fetchData.data)
         } catch (error) {
             console.log(error)
             setDetail({})
@@ -61,15 +60,16 @@ const DetailMovie =  () => {
         // fetchImages()
       
     }, [movieId])
-    console.log(detail)
     console.log(loading)
-
+    const handleLoaded = () => {
+      setLoading(false)
+  }
     return (
         <Row className='my-2'>
             <Col className='d-flex align-items-center justify-content-center mb-2 mb-md-0' md='5' xs='12'>
                 <div className='d-flex align-items-center justify-content-center'>
                 <img className='img-fluid product-img' src={`${BASE_IMG_URL}${detail.backdrop_path}`}
-                            alt={detail.title} />
+                            alt={detail.title} onLoad={handleLoaded} />
                 </div>
             </Col>
       <Col md='7' xs='12'>

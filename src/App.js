@@ -3,13 +3,14 @@ import PrivateAuth from "./components/PrivateAuth"
 
 // ** Router Import
 import Router from "./router/Router"
+import { UserAuthContextProvider } from "./utility/UserAuthContext"
 
 const App = () => {
   return (
     <Suspense fallback={null}>
-      {/* <PrivateAuth > */}
+      <UserAuthContextProvider>
         <Router />
-      {/* </PrivateAuth> */}
+      </UserAuthContextProvider>
     </Suspense>
   )
 }
