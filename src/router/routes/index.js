@@ -29,7 +29,7 @@ const DefaultRoute = "/home"
 
 const Home = lazy(() => import("../../views/Home"))
 const SecondPage = lazy(() => import("../../views/SecondPage"))
-const Login = lazy(() => import("../../views/Login.jsx"))
+const Login = lazy(() => import("../../views/Login"))
 const Register = lazy(() => import("../../views/Register"))
 const ForgotPassword = lazy(() => import("../../views/ForgotPassword"))
 const Error = lazy(() => import("../../views/Error"))
@@ -55,17 +55,17 @@ const Routes = [
   },
   {
     path: "/login",
-    element: <Login />,
-    meta: {
-      layout: "blank"
-    }
+    element: <Login />
+    // meta: {
+    //   layout: "blank"
+    // }
   },
   {
     path: "/register",
-    element: <Register />,
-    meta: {
-      layout: "blank"
-    }
+    element: <Register />
+    // meta: {
+    //   layout: "blank"
+    // }
   },
   {
     path: "/forgot-password",
